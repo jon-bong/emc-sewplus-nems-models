@@ -4,6 +4,7 @@ Definitions are based on the [Data Services Specification for NEMS System](https
 
 ## 🚀 Key Features
 - Microsoft .NET class definitions representing XML objects in EMC Data Services for report downloads & submission verifications.
+- The appropriate use of enumerations for values of child elements (object properties) over `string` data.
 
 ## 📦 Installation
 Install the package via the NuGet Package Manager Console, the Nuget Package Manager UI, the .NET CLI or by adding a package reference.
