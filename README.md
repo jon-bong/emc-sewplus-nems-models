@@ -1,4 +1,12 @@
 # EMC NEMS Data Services Model Definitions
+
+<!--![NuGet Version](https://shields.io)-->
+![Latest Release](https://shields.io)
+![Target Frameworks](https://shields.io)
+![Latest Downloads](https://shields.io)
+![Downloads](https://shields.io)
+![License](https://shields.io)
+
 Model definitions for data services provided by the National Electricity Market of Singapore (NEMS) system of the Energy Market Company (EMC) of Singapore.
 Definitions are based on the [Data Services Specification for NEMS System](https://www.sewplus.emcsg.com/market-system/data-services/data-services-specification) document.
 
