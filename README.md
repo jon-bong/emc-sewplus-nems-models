@@ -121,7 +121,7 @@ simplifies the de-serialisation of XML data without the need to specify the repo
 - `Emc.SewPlus.Nems.Models.Reports.Tsr.TradeSummaryReports` representing the set of trade summary reports.
 - `Emc.SewPlus.Nems.Models.Reports.Opr.OtherPublishedReports` representing the set of other published reports.
 
-In the same example file *RTP.xml*, the contents can undergo XML de-serialisation using the `CorporateWebsiteReports` since the corresponding Real Time Price report (represented by the `RealTimePrice` class) comes under the set of Corporate Website Reports:
+In the same example file *RTP.xml*, the contents can undergo XML de-serialisation using the `CorporateWebsiteReports` class since the corresponding Real Time Price report (represented by the `RealTimePrice` class) comes under the set of Corporate Website Reports:
 ```csharp
 
 using Emc.SewPlus.Nems.Models.Reports.Cwr;
