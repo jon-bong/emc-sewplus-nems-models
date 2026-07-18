@@ -3,8 +3,9 @@ Model definitions for data services provided by the National Electricity Market 
 Definitions are based on the [Data Services Specification for NEMS System](https://www.sewplus.emcsg.com/market-system/data-services/data-services-specification) document.
 
 ## 🚀 Key Features
-- Microsoft .NET class definitions representing XML objects in EMC Data Services for report downloads & submission verifications.
-- The appropriate use of enumerations for values of child elements (object properties) over `string` data.
+- Classes in this package represent EMC Download Reports or Submission types whose data is handled by EMC Data Services in the form of serialised (XML) data.
+- Use of enumerations to represent object properties that take on a set of `string` values.
+- EMC Download Reports classes can be conveniently serialised/de-serialised using their individual types, or via their report category classes.
 
 ## 📦 Installation
 Install the package via the NuGet Package Manager Console, the Nuget Package Manager UI, the .NET CLI or by adding a package reference.
@@ -110,17 +111,17 @@ public List<RealTimePrice> DeserializeRealTimePriceXml(string xmlFile)
 
 ```
 
-#### EMC Download Reports Groups
+#### EMC Download Reports Category Classes
 There are a set of classes under the `Emc.SewPlus.Nems.Models.Reports` namespace that 
 simplifies the de-serialisation of XML data without the need to specify the report class type:
 
-- `Emc.SewPlus.Nems.Models.Reports.Cwr.CorporateWebsiteReports`
-- `Emc.SewPlus.Nems.Models.Reports.Mcr.MarketClearingRunReports`
-- `Emc.SewPlus.Nems.Models.Reports.Opr.OtherPublishedReports`
-- `Emc.SewPlus.Nems.Models.Reports.Stl.SettlementReports`
-- `Emc.SewPlus.Nems.Models.Reports.Tsr.TradeSummaryReports`
+- `Emc.SewPlus.Nems.Models.Reports.Cwr.CorporateWebsiteReports` representing the set of corporate website reports.
+- `Emc.SewPlus.Nems.Models.Reports.Mcr.MarketClearingRunReports` representing the set of market clearing run reports.
+- `Emc.SewPlus.Nems.Models.Reports.Stl.SettlementReports` representing the set of settlement reports.
+- `Emc.SewPlus.Nems.Models.Reports.Tsr.TradeSummaryReports` representing the set of trade summary reports.
+- `Emc.SewPlus.Nems.Models.Reports.Opr.OtherPublishedReports` representing the set of other published reports.
 
-Referring back to the _RTP.xml_ file, XML de-serialisation of `RealTimePrice` elements is now:
+In the same example file *RTP.xml*, the contents can undergo XML de-serialisation using the `CorporateWebsiteReports` since the corresponding Real Time Price report (represented by the `RealTimePrice` class) comes under the set of Corporate Website Reports:
 ```csharp
 
 using Emc.SewPlus.Nems.Models.Reports.Cwr;
