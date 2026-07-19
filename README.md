@@ -1,11 +1,12 @@
 # EMC NEMS Data Services Model Definitions
 Model definitions for data services provided by the National Electricity Market of Singapore (NEMS) system of the Energy Market Company (EMC) of Singapore.
+
 Definitions are based on the [Data Services Specification for NEMS System](https://www.sewplus.emcsg.com/market-system/data-services/data-services-specification) document.
 
 ## 🚀 Key Features
-- Classes in this package represent EMC Download Reports or Submission types whose data is handled by EMC Data Services in the form of serialised (XML) data.
-- Use of enumerations to represent object properties that take on a set of `string` values.
-- EMC Download Reports classes can be conveniently serialised/de-serialised using their individual types, or via their report category classes.
+- Classes in this package represent EMC Download Reports or Submission classes whose objects contain data that is handled by EMC Data Services in the form of serialised (XML) data.
+- Use of enumerations to represent object properties that take on a finite set of `string` values.
+- EMC Download Reports classes can be serialised/deserialised using either their individual types or their report category types.
 
 ## 📦 Installation
 Install the package via the NuGet Package Manager Console, the Nuget Package Manager UI, the .NET CLI or by adding a package reference.
@@ -21,10 +22,11 @@ Install-Package EmcSG.SewPlus.Nems.Models-x.x.x.nupkg
 ```
 
 ## 🛠️ Quick Start & Usage
-The data models (classes) in this package are marked as `Serializable` and hence participate in the XML serialisation and de-serialisation processes.
+All classes representing data elements in the EMC Data Services are marked as `Serializable`, thereby allowing themselves to participate in XML serialisation and deserialisation.
 
-### De-serialising XML Data from an EMC Web Service
-Supposing the following real time price data is returned (as a XML string) and saved in a file *RTP.xml*:
+### Deserialising XML Data from an EMC Web Service
+Suppose the following real time price data is returned (as a XML string) and saved in a file *RTP.xml*:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <list>
@@ -58,7 +60,9 @@ Supposing the following real time price data is returned (as a XML string) and s
     </RealTimePrice>
 </list>
 ```
-To de-serialise the XML data into an object of the `RealTimePrice` class in this package:
+
+To deserialise the XML data into a `RealTimePrice` object:
+
 ```csharp
 
 using Emc.SewPlus.Nems.Models.Reports.Cwr;
@@ -79,7 +83,8 @@ public List<RealTimePrice> DeserializeRealTimePriceXml(string xmlFile)
 }
 
 ```
-If the child elements need to be referenced instead:
+To deserialise the same data into the same object using the child elements:
+
 ```csharp
 
 using Emc.SewPlus.Nems.Models.Reports.Cwr;
@@ -101,7 +106,10 @@ public List<RealTimePrice> DeserializeRealTimePriceXml(string xmlFile)
             LoadCurtailmentPrice = decimal.Parse(n.Element("lcp").Value),
             RegulationPrice = decimal.Parse(n.Element("regulation").Value),
             PrimaryReservePrice = decimal.Parse(n.Element("primaryReserve").Value),
-            SecondaryReservePrice = (n.Element("primaryReserve").Value == null)? null : n.Element("secondaryReserve").Value,
+			
+			// property is nullable (defined as nillable in XSD)
+            SecondaryReservePrice = (n.Element("secondaryReserve").Value == null)? null : n.Element("secondaryReserve").Value,
+						
             ContingencyReservePrice = n.Element("contingencyReserve").Value,
             Eheur = decimal.Parse(n.Element("eheur").Value)
         }).ToList();
@@ -112,16 +120,15 @@ public List<RealTimePrice> DeserializeRealTimePriceXml(string xmlFile)
 ```
 
 #### EMC Download Reports Category Classes
-There are a set of classes under the `Emc.SewPlus.Nems.Models.Reports` namespace that 
-simplifies the de-serialisation of XML data without the need to specify the report class type:
+This package also offers a set of classes under the `Emc.SewPlus.Nems.Models.Reports` namespace that simplifies the deserialisation of XML data without having to specify the exact report class. Their names end with _Reports_:
 
-- `Emc.SewPlus.Nems.Models.Reports.Cwr.CorporateWebsiteReports` representing the set of corporate website reports.
-- `Emc.SewPlus.Nems.Models.Reports.Mcr.MarketClearingRunReports` representing the set of market clearing run reports.
-- `Emc.SewPlus.Nems.Models.Reports.Stl.SettlementReports` representing the set of settlement reports.
-- `Emc.SewPlus.Nems.Models.Reports.Tsr.TradeSummaryReports` representing the set of trade summary reports.
-- `Emc.SewPlus.Nems.Models.Reports.Opr.OtherPublishedReports` representing the set of other published reports.
+- `Emc.SewPlus.Nems.Models.Reports.Cwr.CorporateWebsiteReports` representing the set of *Corporate Website Reports*.
+- `Emc.SewPlus.Nems.Models.Reports.Mcr.MarketClearingRunReports` representing the set of *Market Clearing Run Reports*.
+- `Emc.SewPlus.Nems.Models.Reports.Stl.SettlementReports` representing the set of *Settlement Reports*.
+- `Emc.SewPlus.Nems.Models.Reports.Tsr.TradeSummaryReports` representing the set of *Trade Summary Reports*.
+- `Emc.SewPlus.Nems.Models.Reports.Opr.OtherPublishedReports` representing the set of *Other Published Reports*.
 
-In the same example file *RTP.xml*, the contents can undergo XML de-serialisation using the `CorporateWebsiteReports` class since the corresponding Real Time Price report (represented by the `RealTimePrice` class) comes under the set of Corporate Website Reports:
+Using the same file *RTP.xml*, its contents can be deserialised using the `CorporateWebsiteReports` class since the corresponding Real Time Price report comes under the set of Corporate Website reports:
 ```csharp
 
 using Emc.SewPlus.Nems.Models.Reports.Cwr;
@@ -130,7 +137,7 @@ using System.Xml.Serialization;
 
 public List<RealTimePrice> DeserializeRealTimePriceXml(string xmlFile)
 {
-    // use the CorporateWebsiteReports class to de-serialise the XML data instead of the RealTimePrice class
+    // use the CorporateWebsiteReports class to deserialise the XML data instead of the RealTimePrice class
     XmlSerializer serializer = new XmlSerializer(typeof(CorporateWebsiteReports));
     using (FileStream fileStream = new FileStream(xmlFile, FileMode.Open, FileAccess.Read))
     {
@@ -145,7 +152,7 @@ public List<RealTimePrice> DeserializeRealTimePriceXml(string xmlFile)
 ```
 
 ### Serialising XML Data for an EMC Web Service
-To serialise an object of a class e.g. `BidSubmission` into XML data for submitting into a web service call:
+To serialise an object of a class e.g. `BidSubmission` into XML to submit to a web service call:
 
 ```csharp
 
@@ -171,7 +178,7 @@ public string SerializeBidSubmissionToXml(BidSubmission bidSubmission)
 * **.NET Standard:** 2.0, 2.1, 3.0, 3.1
 
 ## 🗺️ Roadmap
-- **[] Planned:** Incorporate JSON serialisation and de-serialisation.
+- **[] Planned:** Incorporate JSON serialisation and deserialisation.
 
 _Have a feature request? Please open a [feature suggestion](#feedback-and-support)._
 
