@@ -107,7 +107,7 @@ public List<RealTimePrice> DeserializeRealTimePriceXml(string xmlFile)
             RegulationPrice = decimal.Parse(n.Element("regulation").Value),
             PrimaryReservePrice = decimal.Parse(n.Element("primaryReserve").Value),
 			
-			// property is nullable (defined as nillable in XSD)
+            // property is nullable (defined as nillable in XSD)
             SecondaryReservePrice = (n.Element("secondaryReserve").Value == null)? null : n.Element("secondaryReserve").Value,
 						
             ContingencyReservePrice = n.Element("contingencyReserve").Value,
