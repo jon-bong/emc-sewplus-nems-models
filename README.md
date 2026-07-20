@@ -1,5 +1,8 @@
 # EMC NEMS Data Services Model Definitions
-[![License: MIT](https://shields.io)](https://opensource.org)
+
+[![NuGet Version (Emc.SewPlus.Nems.Models)](https://img.shields.io/nuget/v/Emc.SewPlus.Nems.Models.svg?style=flat-square)](https://www.nuget.org/packages/Emc.SewPlus.Nems.Models/)
+![NuGet Downloads](https://img.shields.io/nuget/dt/Emc.SewPlus.Nems.Models)
+![GitHub License](https://img.shields.io/github/license/jon-bong/emc-sewplus-nems-models)
 
 Model definitions for data services provided by the National Electricity Market of Singapore (NEMS) system of the Energy Market Company (EMC) of Singapore.
 
