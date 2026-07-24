@@ -179,7 +179,7 @@ public string SerializeBidSubmissionToXml(BidSubmission bidSubmission)
 ```
 
 ## 🚀 Target Frameworks
-* **.NET:** 5.0, 6.0, 7.0, 8.0, 9.0
+* **.NET:** 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
 * **.NET Framework:** 4.0, 4.5, 4.5.2, 4.6.1, 4.6.2, 4.7.2, 4.8, 4.8.1
 * **.NET Standard:** 2.0, 2.1, 3.0, 3.1
 
