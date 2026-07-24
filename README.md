@@ -1,5 +1,6 @@
 # EMC NEMS Data Services Model Definitions
 
+![GitHub Release](https://img.shields.io/github/v/release/jon-bong/emc-sewplus-nems-models)
 [![NuGet Version (Emc.SewPlus.Nems.Models)](https://img.shields.io/nuget/v/Emc.SewPlus.Nems.Models.svg?style=flat-square)](https://www.nuget.org/packages/Emc.SewPlus.Nems.Models/)
 ![NuGet Downloads](https://img.shields.io/nuget/dt/Emc.SewPlus.Nems.Models)
 ![GitHub License](https://img.shields.io/github/license/jon-bong/emc-sewplus-nems-models)
