@@ -19,12 +19,12 @@ Install the package via the NuGet Package Manager Console, the Nuget Package Man
 
 ### .NET CLI
 ```bash
-dotnet add package EmcSG.SewPlus.Nems.Models-x.x.x.nupkg
+dotnet add package Emc.SewPlus.Nems.Models-x.x.x.nupkg
 ```
 
 ### Package Manager
 ```powershell
-Install-Package EmcSG.SewPlus.Nems.Models-x.x.x.nupkg
+Install-Package Emc.SewPlus.Nems.Models-x.x.x.nupkg
 ```
 
 ## 🛠️ Quick Start & Usage
