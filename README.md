@@ -10,7 +10,7 @@ Model definitions for data services provided by the National Electricity Market 
 Definitions are based on the [Data Services Specification for NEMS System](https://www.sewplus.emcsg.com/market-system/data-services/data-services-specification) document.
 
 ## 🚀 Key Features
-- Classes in this package represent EMC Download Reports or Submission classes whose objects contain data that is handled by EMC Data Services in the form of serialised (XML) data.
+- Strongly typed classes representing EMC Download Reports and Submission messages submitted to or received from EMC Data Services.
 - Use of enumerations to represent object properties that take on a finite set of `string` values.
 - EMC Download Reports classes can be serialised/deserialised using either their individual types or their report category types.
 
@@ -19,18 +19,18 @@ Install the package via the NuGet Package Manager Console, the Nuget Package Man
 
 ### .NET CLI
 ```bash
-dotnet add package Emc.SewPlus.Nems.Models-x.x.x.nupkg
+dotnet add package Emc.SewPlus.Nems.Models.x.x.x.nupkg
 ```
 
 ### Package Manager
 ```powershell
-Install-Package Emc.SewPlus.Nems.Models-x.x.x.nupkg
+Install-Package Emc.SewPlus.Nems.Models.x.x.x.nupkg
 ```
 
-## 🛠️ Quick Start & Usage
+## 🛠️ Usage
 All classes representing data elements in the EMC Data Services are marked as `Serializable`, thereby allowing themselves to participate in XML serialisation and deserialisation.
 
-### Deserialising XML Data from an EMC Web Service
+### Deserialising XML Data Received From an EMC Web Service
 Suppose the following real time price data is returned (as a XML string) and saved in a file *RTP.xml*:
 
 ```xml
@@ -49,6 +49,14 @@ Suppose the following real time price data is returned (as a XML string) and sav
         <secondaryReserve/>
         <contingencyReserve>20.16</contingencyReserve>
         <eheur>-0.76</eheur>
+        <solar>22.540</solar>
+        <RUSEP>659.52</RUSEP>
+        <MAP>236.65</MAP>
+        <MAPT>591.75.00</MAPT>
+        <tpcApplied>N</tpcApplied>
+        <referenceRegulation>22.22</referenceRegulation>
+        <referencePrimaryReserve>69.69</referencePrimaryReserve>
+        <referenceContingencyReserve>50.44</referenceContingencyReserve>
     </RealTimePrice>
     <RealTimePrice>
         <period>26</period>
@@ -63,6 +71,14 @@ Suppose the following real time price data is returned (as a XML string) and sav
         <secondaryReserve/>
         <contingencyReserve>2</contingencyReserve>
         <eheur>-0.66</eheur>
+        <solar>22.540</solar>
+        <RUSEP>659.52</RUSEP>
+        <MAP>236.65</MAP>
+        <MAPT>591.75.00</MAPT>
+        <tpcApplied>N</tpcApplied>
+        <referenceRegulation>22.22</referenceRegulation>
+        <referencePrimaryReserve>69.69</referencePrimaryReserve>
+        <referenceContingencyReserve>50.44</referenceContingencyReserve>
     </RealTimePrice>
 </list>
 ```
@@ -117,7 +133,16 @@ public List<RealTimePrice> DeserializeRealTimePriceXml(string xmlFile)
             SecondaryReservePrice = (n.Element("secondaryReserve").Value == null)? null : n.Element("secondaryReserve").Value,
 						
             ContingencyReservePrice = n.Element("contingencyReserve").Value,
-            Eheur = decimal.Parse(n.Element("eheur").Value)
+            Eheur = decimal.Parse(n.Element("eheur").Value),
+            SolarGenerationForecast = decimal.Parse(n.Element("solar").Value),
+            ReferenceUniformSingaporeEnergyPrice = decimal.Parse(n.Element("RUSEP").Value),
+            MovingAveragePrice = decimal.Parse(n.Element("MAP").Value),
+            MovingAveragePriceThreshold = decimal.Parse(n.Element("MAPT").Value),
+            TpcApplied = n.Element("tpcApplied").Value.Equals("Y") ? YesNoResponse.Yes
+                : (n.Element("tpcApplied").Value.Equals("N") ? YesNoResponse.No : YesNoResponse.NotDefined),
+            ReferenceRegulation = decimal.Parse(n.Element("referenceRegulation").Value),
+            ReferencePrimaryReserve = decimal.Parse(n.Element("referencePrimaryReserve").Value),
+            ReferenceContingencyReserve = decimal.Parse(n.Element("referenceContingencyReserve").Value)
         }).ToList();
 
     return results;
@@ -158,7 +183,7 @@ public List<RealTimePrice> DeserializeRealTimePriceXml(string xmlFile)
 ```
 
 ### Serialising XML Data for an EMC Web Service
-To serialise an object of a class e.g. `BidSubmission` into XML to submit to a web service call:
+To serialise an object of a class e.g. `BidSubmission` into XML to submit to EMC web services:
 
 ```csharp
 
@@ -179,9 +204,9 @@ public string SerializeBidSubmissionToXml(BidSubmission bidSubmission)
 ```
 
 ## 🚀 Target Frameworks
-* **.NET:** 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
+* **.NET:** Core 3.0, Core 3.1, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0
 * **.NET Framework:** 4.0, 4.5, 4.5.2, 4.6.1, 4.6.2, 4.7.2, 4.8, 4.8.1
-* **.NET Standard:** 2.0, 2.1, 3.0, 3.1
+* **.NET Standard:** 2.0, 2.1
 
 ## 🗺️ Roadmap
 - **[] Planned:** Incorporate JSON serialisation and deserialisation.
