@@ -14,6 +14,15 @@ Definitions are based on the [Data Services Specification for NEMS System](https
 - Use of enumerations to represent object properties that take on a finite set of `string` values.
 - EMC Download Reports classes can be serialised/deserialised using either their individual types or their report category types.
 
+## 📚 Technical Documentation
+The API reference guide has been generated using Sandcastle. 
+
+👉 **[Browse the Technical Documentation](./docs/index.html)**
+
+### What's Inside?
+* **Namespaces & Classes:** Full code architecture breakdown.
+* **Methods & Properties:** Detailed parameter and return value info.
+
 ## 📦 Installation
 Install the package via the NuGet Package Manager Console, the Nuget Package Manager UI, the .NET CLI or by adding a package reference.
 

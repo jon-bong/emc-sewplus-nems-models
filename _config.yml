@@ -1,2 +1,10 @@
 #description: "<style>.site-footer { display: none !important; }</style>"
 theme: jekyll-theme-cayman
+
+# 1. Force Jekyll to safely copy over your Sandcastle folders 
+include:
+  - docs
+
+# 2. Prevent Jekyll from erasing the docs folder during assembly
+keep_files:
+  - docs
